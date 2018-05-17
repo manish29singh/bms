@@ -156,7 +156,7 @@ module.exports.changeStatus = async function (req, res) {
         if (active == 'true') {
             newStatus = false;
         }
-        if (id != '' || undefined || null) {
+        if (id) {
             var user = await userModel.findByIdAndUpdate(id, { active: newStatus });
             if (user) {
                 console.log(user.active);

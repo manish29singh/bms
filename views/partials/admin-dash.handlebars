@@ -1,6 +1,7 @@
 <script>
     $(document).ready(function () {
         $('#userTable').DataTable();
+        $('#ticketTable').DataTable();
     });
     $(document).ready(function () {
         $('#invite').click(function () {
@@ -13,6 +14,15 @@
             console.log(name + " " + email)
             $('#name').val(name);
             $('#email').val(email);
+            $('#uid').val(id);
+        })
+    }
+
+    function ticketStatusPop(id, option) {
+        $(document).ready(function () {
+            $('#ticket-status').toggle();
+            console.log(id + " " + option)
+            $('#ticket-status-select').val(option);
             $('#uid').val(id);
         })
     }
@@ -84,4 +94,41 @@
     </table>
     <!--reinvittation email dialog box-->
     {{>re-invitation-dialog}}
+</div>
+
+<br>
+<br>
+<h2 class="page-header">Tickets</h2>
+
+<div>
+    <table id="ticketTable">
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Issue</th>
+                <th>Description</th>
+                <th>Floor No</th>
+                <th>Created By</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each ticketList}}
+            <tr id="{{_id}}">
+                <td>{{serial @index}}</td>
+                <td>{{title}}</td>
+                <td>{{description}}</td>
+                <td>{{floor_no}}</td>
+                <td>{{user_docs.name}}</td>
+                <td>{{creation_date}}</td>
+                <td>
+                    <button id='{{_id}}status' class="btn btn-sm btn-info" onclick="ticketStatusPop('{{_id}}', '{{status}}')">{{status}}</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <!--reinvittation email dialog box-->
+    {{>ticket-status}}
 </div>

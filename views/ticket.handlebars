@@ -1,0 +1,47 @@
+<script>
+    $(document).ready(function(){
+        console.log($('#ticket-status-select').val('{{ticket.status}}'))
+    })
+</script>
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <h2 class="page-header">{{heading}}</h2>
+    {{#if message}}
+    <div class="alert alert-danger">{{message}}</div>
+    {{/if}} {{#if ticket}}
+    <form method="post" action="/tickets/edit-ticket">
+        {{else}}
+        <form method="post" action="/tickets">
+            {{/if}}
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="ticket_title" placeholder="Title" value="{{ticket.title}}" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" name="ticket_description" placeholder="Description" value="{{ticket.description}}"
+                    required>
+            </div>
+            <div class="form-group">
+                <label>Floor number</label>
+                <input type="number" class="form-control" name="ticket_floor" placeholder="Floor Number" value="{{ticket.floor_no}}" required>
+                <div id='confirmMsg'></div>
+            </div>
+
+            {{#if ticket}}
+            <div class="form-group">
+                <select class="form-control"  name = "ticket_status" id="ticket-status-select">
+                    <option value="open" >open</option>
+                    <option value="in-progress" >in-progress</option>
+                    <option value="closed" >closed</option>
+                </select>
+            </div>
+            {{/if}}
+
+            <input type="hidden" name="user_id" value="{{userId}}">
+            <input type="hidden" name="ticket_id" value="{{ticket._id}}">
+
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+        </form>
+</div>

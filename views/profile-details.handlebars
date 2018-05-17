@@ -5,24 +5,24 @@
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-6">
+        {{#if updateFlag}}
+         <form method="post" action="/user/update-profile-details">
+        {{else}}
         <form method="post" action="/user/profile-details">
+        {{/if}}
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" class="form-control" placeholder="Name" name="name" value="{{name}}" required>
-            </div>
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username" name="username" required>
+                <input type="text" class="form-control" placeholder="Name" name="name" value="{{user.name}}" required>
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input type="text" class="form-control" placeholder="Address" name="address" required>
+                <input type="text" class="form-control" placeholder="Address" name="address" value="{{user.address}}" required>
             </div>
             <div class="form-group">
                 <label>Contact No.</label>
-                <input type="tel" class="form-control" placeholder="Contact No." name="contact" maxlength="10" required>
+                <input type="tel" class="form-control" placeholder="Contact No." name="contact" maxlength="10" value ={{user.contact}} quired>
             </div>
-            <input type="hidden" name ="id" value="{{userId}}">
+            <input type="hidden" name ="id" value="{{user._id}}">
 
             <button type="submit" class="btn btn-default">Submit</button>
             <button type="reset" class="btn btn-danger">Reset</button>

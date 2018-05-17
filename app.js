@@ -27,6 +27,7 @@ var userRoute = require('./routes/usersRoute');
 var saRoute = require('./routes/saRoute');
 var adminRoute = require('./routes/adminRoute');
 var buildingRoute = require('./routes/buildingRoute');
+var ticketRoute = require('./routes/ticketRoute');
 
 //dotenv config
 require('dotenv').load();
@@ -42,6 +43,7 @@ app.engine('handlebars', exphbs({
   helpers: {
     isSuper: helpers.isSuper,
     isAdmin: helpers.isAdmin,
+    isTenant: helpers.isTenant,
     serial: helpers.serial,
     changeColor: helpers.changeColor,
     disableReInvite: helpers.disableReInvite
@@ -108,6 +110,7 @@ app.use('/user', userRoute);
 app.use('/sa', saRoute);
 app.use('/admin', adminRoute);
 app.use('/building', buildingRoute);
+app.use('/tickets', ticketRoute);
 
 // Server
 var options = {

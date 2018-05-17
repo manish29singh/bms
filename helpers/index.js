@@ -8,6 +8,12 @@ module.exports.isAdmin =  function (role) {
     else return false;
   }
 
+module.exports.isTenant =  function (role) {
+    if (role === 'TENANT') return true;
+    else return false;
+  }
+
+
 module.exports.serial = function(i){
     return ++i;
   }
@@ -24,3 +30,4 @@ module.exports.disableReInvite = function(active){
     if(active) return 'disabled';
     else return '';
   }
+

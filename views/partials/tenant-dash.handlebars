@@ -1,0 +1,50 @@
+<script>
+    $(document).ready(function () {
+        $('#userTable').DataTable();
+    });
+
+</script>
+<div class="pull-right">
+    <a href="/tickets">Create Ticket</a>
+     <a href="/events">Create Event</a>
+</div>
+<p>Welcome {{user.name}}</p>
+<br>
+<br>
+<h2 class="page-header">Tickets</h2>
+<div>
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Issue</th>
+                <th>Description</th>
+                <th>Floor No</th>
+                <th>Created By</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each list}}
+            <tr id="{{_id}}">
+                <td>{{serial @index}}</td>
+                <td>{{title}}</td>
+                <td>{{description}}</td>
+                <td>{{floor_no}}</td>
+                <td>{{user_docs.name}}</td>
+                <td>{{creation_date}}</td>
+                <td>{{status}}</td>
+                <td>
+                    <a href="/tickets/{{_id}}">Edit</a>
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteTicket('{{_id}}')">Delete</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

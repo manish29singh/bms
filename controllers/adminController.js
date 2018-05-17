@@ -3,6 +3,7 @@ var dj = require('../configurations/default.json');
 var userModel = require('../models/userModel');
 var authController = require('../controllers/authController');
 var util = require('../utils/util');
+var ticketModel = require('../models/ticketModel');
 
 /**
  * method to get admin's index page
@@ -12,12 +13,22 @@ var util = require('../utils/util');
  */
 module.exports.getAdminIndexPage = async function (req, res, role) {
     try {
+        let user  = await userModel.findById(req._passport.session.user);
+        let ticketList = await ticketModel.aggregate([
+            {
+                $lookup:{
+                    from : "users",
+                    localField : "createdby",
+                    foreignField : "_id",
+                    as : "user_docs"
+                }
+            },
+            {
+                $unwind : "$user_docs"
+            }
+        ])
         let userList = await userModel.find({ role: 'TENANT' });
-        if (userList) {
-            res.render('index', { list: userList, role: role });
-        } else {
-            res.render('index', { list: userList, role: role });
-        }
+        res.render('index', { list: userList, role: role, user: user, ticketList :  ticketList});
     } catch (err) {
         res.json({ "message": err });
     }
