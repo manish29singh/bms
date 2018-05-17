@@ -6,5 +6,8 @@
 {{#if (isAdmin user.role)}}
 {{>admin-dash}}
 {{/if}}
+{{#if (isTenant user.role)}}
+{{>tenant-dash}}
+{{/if}}
 
 

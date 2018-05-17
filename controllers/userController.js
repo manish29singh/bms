@@ -21,11 +21,10 @@ module.exports.UserDetails = async function (req, res) {
     }
     if (req.method == 'POST') {
         try {
-            if (req.body.id != '' || req.body.username != '' || req.body.name != '' || req.body.address != '' || req.body.contact != '' || req.body.id != '') {
+            if (req.body.id != ''|| req.body.name != '' || req.body.address != '' || req.body.contact != '' || req.body.id != '') {
                
                 var user = await userModel.findOneAndUpdate({_id: req.body.id}, {
                     name: req.body.name,
-                    username: req.body.username,
                     contact: req.body.contact,
                     address: req.body.address
                 });
@@ -37,6 +36,47 @@ module.exports.UserDetails = async function (req, res) {
         } catch (err) {
             res.json({ "message": err });
         }
+    }
+}
+
+module.exports.getUserDetails = async function(req, res){
+    try{
+        let id  = req.params.id;
+        let user = await userModel.findById(id);
+        if(user){
+            res.render('profile-details', {user: user, updateFlag : true});
+        }else{
+            req.flash('error_msg', 'User not found.');
+            res.redirect('/');
+        }
+    }catch(err){
+        res.send(err.message);
+    }
+}
+
+/**
+ * updating user details
+ * @param {Object} req 
+ * @param {Object} res 
+ */
+module.exports.updateUserDetail =async function(req, res){
+    try{
+        let userName = req.body.name,
+            userAddress = req.body.address,
+            userContact = req.body.contact;
+            //userId = req.params.id;
+            userId = req.body.id;
+
+        let user = await userModel.findByIdAndUpdate(userId, {name : userName, address: userAddress, contact : userContact});
+        if(user){
+            req.flash('success_msg', 'Profile has been updated successfully.');
+            res.redirect('/');
+        }else{
+            req.flash('error_msg', 'Profile could not be updated. Please try again.');
+            res.redirect('/');
+        }
+    }catch(err){
+        res.send(err.message);
     }
 }
 

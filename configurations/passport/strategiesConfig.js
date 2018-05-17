@@ -68,7 +68,7 @@ async function (email, password, done) {
 	}));
 
 passport.serializeUser(function (user, done) {
-	done(null, user.id);
+    done(null, user.id);
 });
 
 passport.deserializeUser( async function (id, done) {

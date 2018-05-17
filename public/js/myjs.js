@@ -81,3 +81,49 @@ function deleteUser(id){
     }else return false;
 
 }
+
+function changeTicketStatus(){
+    let ticketStatus = $('#ticket-status-select').val();
+    let uid = $('#uid').val();
+    console.log(uid+ " "+ ticketStatus)
+    $(document).ready(function(){
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: {
+                id: uid,
+                status: ticketStatus
+            },
+            url: `https://localhost:3000/tickets/ticket-status`,
+            success: function (result) {
+               console.log(result.status)
+               $('#ticket-status').css("display", 'none');
+               $(`#${uid}status`).text(result.status);
+           },
+           error: function (err) {
+               alert('error called' + err.message);
+           }
+
+        })
+    })
+}
+
+function deleteTicket(id){
+    var sure = confirm('Are you sure?');
+    if(sure){
+        $(document).ready(function () {
+            $.ajax({
+                type: 'get',
+                dataType: 'json',
+                url: `https://localhost:3000/tickets/${id}`,
+                success: function (result) {
+                     $('#'+id).remove();
+                },
+                error: function (err) {
+                    alert('error called' + err.message);
+                }
+            })
+        })
+    }else return false;
+
+}

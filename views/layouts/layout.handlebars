@@ -22,6 +22,11 @@
           <li role="presentation">
             <a href="/">Dashboard</a>
           </li>
+          {{#if user}}
+          <li role="presentation">
+            <a href="/user/profile-details/{{user._id}}">Profile</a>
+          </li>
+          {{/if}}
           <li role="presentation">
             <a href="/setting/change-password">Change Password</a>
           </li>
@@ -50,7 +55,8 @@
         <div class="alert alert-danger">{{error_msg}}</div>
         {{/if}} {{#if error}}
         <div class="alert alert-danger">{{error}}</div>
-        {{/if}} {{{body}}}
+        {{/if}}
+        {{{body}}}
       </div>
 
 

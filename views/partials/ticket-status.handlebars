@@ -1,0 +1,21 @@
+<div id='ticket-status' style='display:none;width:300px; height:150px; position:absolute; background-color:rgb(236, 245, 245); padding:20px; top:35%; left:35%;'>
+    <h5>Status</h5>
+    <div class="form-group">
+        <select class="form-control" id="ticket-status-select">
+            <option value="open">open</option>
+            <option value="in-progress">in-progress</option>
+            <option value="closed">closed</option>
+        </select>
+    </div>
+     <input type="hidden" id='uid' name ='id'>
+     <button class="btn btn-info" onclick="changeTicketStatus()">Change</button>
+    <button class="btn btn-warning" onclick="closeDiv()">Close</button>
+</div>
+
+<script>
+    function closeDiv() {
+        $(document).ready(function () {
+            $('#ticket-status').css('display', 'none');
+        })
+    }
+</script>

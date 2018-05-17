@@ -1,9 +1,18 @@
 const router = require('express').Router()
 var ticketController = require('../controllers/ticketController')
+var middleware = require('../middlewares/index')
 
-router.get('/tickets')
-router.post('/tickets')
+//create
+router.get('/', middleware.ensureAuthenticated, ticketController.addTicket)
+router.post('/', middleware.ensureAuthenticated, ticketController.addTicket)
 
-router.get('/tickets/:ticketId')
-router.put('/tickets/:ticketId')
-router.delete('/tickets/:ticketId')
+//edit
+router.get('/:ticketId',middleware.ensureAuthenticated, ticketController.showEditTicket)
+router.post('/edit-ticket',middleware.ensureAuthenticated, ticketController.editTicket)
+
+//delete
+router.get('/:ticketId', middleware.ensureAuthenticated, ticketController.deleteTicket)
+
+router.post('/ticket-status', ticketController.changeTicketStatus);
+
+module.exports = router;

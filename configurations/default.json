@@ -17,5 +17,10 @@
         "middle" : "We would like to invite you to join our website.\n Please click on the link below to join.",
         "footer": "",
         "regards": "Building Management Ltd."
+    },
+    "ticket_status":{
+        "OPEN": "open",
+        "IN_PROGRESS": "in progress",
+        "CLOSED": "closed"
     }
 }
